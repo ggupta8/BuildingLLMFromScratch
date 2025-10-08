@@ -1,0 +1,32 @@
+from typing import List
+
+import os
+import re   
+
+"""
+Retrieves text from a given file.
+"""
+def read_txt_into_str(file_name: str) -> str:
+    file_path = os.getcwd() + file_name
+    file_path = file_path.replace("/basic_examples", "")
+    with open(file_path, "r", encoding="utf-8") as f:
+        raw_txt = f.read()
+    return raw_txt
+
+"""
+Splits a text into an array of words.
+White space is not included. Punctionation are separate array elements.
+"""
+def split_txt_into_words(unsplit_txt: str) -> str:
+    split_txt_with_spaces = re.split(r'([,.:;?_!"()\']|--|\s)', unsplit_txt)
+    final_split_txt = [item for item in split_txt_with_spaces if item.strip()]
+    return final_split_txt
+
+"""
+Maps each word / symbol in text to a token ID.
+"""
+def create_vocabulary(txt_arr: List[str]):
+    # Alphabetize word list and assign a token ID accordingly.
+    sorted_word_list = sorted(set(txt_arr))
+    vocab = {token: idx for idx, token in enumerate(sorted_word_list)}
+    return vocab
