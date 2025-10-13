@@ -26,7 +26,10 @@ def split_txt_into_words(unsplit_txt: str) -> str:
 Maps each word / symbol in text to a token ID.
 """
 def create_vocabulary(txt_arr: List[str]):
-    # Alphabetize word list and assign a token ID accordingly.
+    # Alphabetize list of words and assign a token ID accordingly.
     sorted_word_list = sorted(set(txt_arr))
-    vocab = {token: idx for idx, token in enumerate(sorted_word_list)}
+    # "endoftext" signifies a separation between text sources for the LLM to better
+    # context. "unk" is for words that are not found in our vocabulary.
+    sorted_word_list.extend(["<|endoftext|>", "<|unk|>"])
+    vocab = {word: idx for idx, word in enumerate(sorted_word_list)}
     return vocab
