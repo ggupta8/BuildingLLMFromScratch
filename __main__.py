@@ -1,6 +1,7 @@
-from .basic_examples import tokenizer as simple_tokenizer
-from .basic_examples import tokenizer_utils as tu
+# from basic_examples import tokenizer as simple_tokenizer
+from basic_examples import tokenizer_utils as tu
 
+# Byte Pair Encoding
 import tiktoken
 
 if __name__ == "__main__":
@@ -10,9 +11,7 @@ if __name__ == "__main__":
 
     tokenizer = tiktoken.get_encoding("gpt2")
 
-    text = "Hello, do you like tea? <|endoftext|> In the sunlit " \
-    "terraces of someunknownPlace."
-    ids = tokenizer.encode(text, allowed_special={"<|endoftext|>"})
-    print(ids)
-    strings = tokenizer.decode(ids)
-    print(strings)
+    text = tu.read_txt_into_str("/text_sources/the-verdict.txt")
+    encoded_txt = tokenizer.encode(text, allowed_special={"<|endoftext|>"})
+    encoded_sample = encoded_txt[50:]
+    print(len(encoded_txt))

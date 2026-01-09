@@ -6,10 +6,8 @@ class SimpleTokenizer:
         self.str_to_int = vocab
         self.int_to_str = {i:s for s,i in vocab.items()}
     
-    """
-    Processes input text into token IDs.
-    """
     def encode(self, text):
+        """Processes input text into token IDs."""
         split_txt = tokenizer_utils.split_txt_into_words(text)
         # Replace unknown words with "unk".
         split_txt = [item if item in self.str_to_int
@@ -17,10 +15,8 @@ class SimpleTokenizer:
         ids = [self.str_to_int[word] for word in split_txt]
         return ids
     
-    """
-    Converts token IDs back into text.
-    """
     def decode(self, token_id_map):
+        """Converts token IDs back into text."""
         text = " ".join([self.int_to_str[i] for i in token_id_map])
         # Replaces spaces before punctuations.
         text = re.sub(r'\s+([,.?!"()\'])', r'\1', text)
