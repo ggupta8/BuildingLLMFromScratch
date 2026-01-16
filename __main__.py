@@ -8,8 +8,13 @@ if __name__ == "__main__":
     # tokenizer = simple_tokenizer.SimpleTokenizer(vocab)
 
     text = tu.read_txt_into_str("/text_sources/the-verdict.txt")
-    dataloader = du.create_dataloader(text, batch_size=1, max_len=4,
-                                      stride=1, shuffle=False)
+    dataloader = du.create_dataloader(text, batch_size=8, max_len=4,
+                                      stride=4, shuffle=False)
+
     data_iter = iter(dataloader)
-    first_batch = next(data_iter)
-    print(first_batch)
+    inputs, targets = next(data_iter)
+    print("Token IDs:\n", inputs)
+    print("\nInputs shape:\n", inputs.shape)
+
+    input_embeddings = du.create_embeddings(256, inputs)
+    print(input_embeddings.shape)
